@@ -1,0 +1,11 @@
+#!/bin/sh
+
+addgroup -g ${GID} kresus && adduser -H -s /bin/sh -D -G kresus -u ${UID} kresus
+chown -R ${UID}:${GID} /kresus
+
+if [ $# -eq 0 ]; then
+    exec su-exec kresus:kresus node /kresus/app/bin/kresus.js
+else
+    exec su-exec kresus:kresus "$@"
+fi
+
